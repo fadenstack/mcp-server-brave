@@ -7,7 +7,7 @@ import asyncio
 import httpx
 from loguru import logger
 
-from mcp_server.settings import settings
+from mcp_server.settings import provider_settings_manager
 
 
 class BraveSearchClient:
@@ -18,17 +18,19 @@ class BraveSearchClient:
         self._last_call: float = 0.0
 
     def _headers(self) -> dict[str, str]:
+        ps = provider_settings_manager.current
         return {
             "Accept": "application/json",
             "Accept-Encoding": "gzip",
-            "X-Subscription-Token": settings.api_key,
+            "X-Subscription-Token": ps.api_key,
         }
 
     async def _rate_limit(self) -> None:
         """Simple token-bucket: at most ``rate_limit_rps`` requests/sec."""
         async with self._semaphore:
             now = asyncio.get_event_loop().time()
-            interval = 1.0 / settings.rate_limit_rps
+            ps = provider_settings_manager.current
+            interval = 1.0 / ps.rate_limit_rps
             wait = self._last_call + interval - now
             if wait > 0:
                 await asyncio.sleep(wait)
@@ -37,10 +39,11 @@ class BraveSearchClient:
     async def _get(self, path: str, params: dict) -> dict:
         """Make a rate-limited GET request to the Brave API."""
         await self._rate_limit()
-        url = f"{settings.base_url}{path}"
+        ps = provider_settings_manager.current
+        url = f"{ps.base_url}{path}"
 
         async with httpx.AsyncClient(
-            timeout=httpx.Timeout(settings.request_timeout, connect=5.0),
+            timeout=httpx.Timeout(ps.request_timeout, connect=5.0),
         ) as client:
             resp = await client.get(url, headers=self._headers(), params=params)
 

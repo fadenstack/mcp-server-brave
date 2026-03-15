@@ -8,7 +8,7 @@ import sys
 
 import click
 
-from mcp_server.settings import settings
+from mcp_server.settings import settings, provider_settings_manager
 
 
 @click.group()
@@ -47,8 +47,10 @@ def doctor() -> None:
 
     click.echo("Checking configuration...\n")
 
+    ps = provider_settings_manager.current
+
     # API key
-    if not settings.api_key:
+    if not ps.api_key:
         errors.append("MCP_BRAVE_API_KEY is not set.")
     else:
         click.echo("  [OK] API key configured")
@@ -60,17 +62,17 @@ def doctor() -> None:
         warnings.append("No MCP_BRAVE_AUTH_TOKEN set — server accepts unauthenticated requests.")
 
     # Test API connectivity
-    if settings.api_key:
+    if ps.api_key:
         click.echo("\nTesting Brave API connectivity...")
         import httpx
 
         try:
             resp = httpx.get(
-                f"{settings.base_url}/web/search",
+                f"{ps.base_url}/web/search",
                 params={"q": "test", "count": 1},
                 headers={
                     "Accept": "application/json",
-                    "X-Subscription-Token": settings.api_key,
+                    "X-Subscription-Token": ps.api_key,
                 },
                 timeout=10,
             )

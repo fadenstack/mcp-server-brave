@@ -5,10 +5,10 @@ exposes **Brave Search** as MCP tools for [LLM.port](https://github.com/llm-port
 
 ## Tools provided
 
-| Tool | Description |
-|------|-------------|
-| `web_search` | Full web search with result count, country, and freshness filters |
-| `local_search` | Local business/places search |
+| Tool           | Description                                                       |
+| -------------- | ----------------------------------------------------------------- |
+| `web_search`   | Full web search with result count, country, and freshness filters |
+| `local_search` | Local business/places search                                      |
 
 ## Quick start
 
@@ -44,13 +44,13 @@ docker compose up -d --build
 
 In the LLM.port admin UI → **MCP Servers** → **Add Server**:
 
-| Field | Value |
-|-------|-------|
-| Name | Brave Search |
-| Transport | SSE |
-| URL | `http://mcp-brave:8100/mcp` |
-| Tool Prefix | `brave` |
-| Headers | `Authorization: Bearer <your-auth-token>` |
+| Field       | Value                                     |
+| ----------- | ----------------------------------------- |
+| Name        | Brave Search                              |
+| Transport   | SSE                                       |
+| URL         | `http://mcp-brave:8100/mcp`               |
+| Tool Prefix | `brave`                                   |
+| Headers     | `Authorization: Bearer <your-auth-token>` |
 
 Or via API:
 
@@ -71,27 +71,27 @@ curl -X POST http://localhost:8000/api/admin/mcp/servers \
 
 ## CLI commands
 
-| Command | Purpose |
-|---------|---------|
-| `mcp-brave run` | Start the server |
-| `mcp-brave doctor` | Validate config and test API key |
-| `mcp-brave manifest` | Print tool manifest as JSON |
-| `mcp-brave docker-up` | Start via Docker Compose |
-| `mcp-brave docker-down` | Stop Docker container |
+| Command                 | Purpose                          |
+| ----------------------- | -------------------------------- |
+| `mcp-brave run`         | Start the server                 |
+| `mcp-brave doctor`      | Validate config and test API key |
+| `mcp-brave manifest`    | Print tool manifest as JSON      |
+| `mcp-brave docker-up`   | Start via Docker Compose         |
+| `mcp-brave docker-down` | Stop Docker container            |
 
 ## Configuration
 
 All settings via environment variables (prefix `MCP_BRAVE_`):
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `MCP_BRAVE_API_KEY` | *(required)* | Brave Search API key |
-| `MCP_BRAVE_HOST` | `0.0.0.0` | Bind host |
-| `MCP_BRAVE_PORT` | `8100` | Bind port |
-| `MCP_BRAVE_AUTH_TOKEN` | *(empty)* | If set, incoming requests must include `Authorization: Bearer <token>` |
-| `MCP_BRAVE_RATE_LIMIT_RPS` | `1` | Max requests per second to Brave API |
-| `MCP_BRAVE_REQUEST_TIMEOUT` | `15` | HTTP timeout (seconds) for Brave API calls |
-| `MCP_BRAVE_LOG_LEVEL` | `info` | Logging level |
+| Variable                    | Default      | Description                                                            |
+| --------------------------- | ------------ | ---------------------------------------------------------------------- |
+| `MCP_BRAVE_API_KEY`         | _(required)_ | Brave Search API key                                                   |
+| `MCP_BRAVE_HOST`            | `0.0.0.0`    | Bind host                                                              |
+| `MCP_BRAVE_PORT`            | `8100`       | Bind port                                                              |
+| `MCP_BRAVE_AUTH_TOKEN`      | _(empty)_    | If set, incoming requests must include `Authorization: Bearer <token>` |
+| `MCP_BRAVE_RATE_LIMIT_RPS`  | `1`          | Max requests per second to Brave API                                   |
+| `MCP_BRAVE_REQUEST_TIMEOUT` | `15`         | HTTP timeout (seconds) for Brave API calls                             |
+| `MCP_BRAVE_LOG_LEVEL`       | `info`       | Logging level                                                          |
 
 ## Creating new providers
 
