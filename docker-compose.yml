@@ -1,0 +1,19 @@
+x-app: &app
+  build:
+    context: .
+    target: prod
+  image: llmport/mcp-brave:latest
+  container_name: mcp-brave
+  restart: unless-stopped
+  env_file: .env
+  ports:
+    - "${MCP_BRAVE_PORT:-8100}:8100"
+  healthcheck:
+    test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8100/api/health')"]
+    interval: 15s
+    timeout: 5s
+    retries: 3
+
+services:
+  mcp-brave:
+    <<: *app

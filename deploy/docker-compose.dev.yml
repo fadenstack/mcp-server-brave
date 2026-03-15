@@ -1,0 +1,11 @@
+services:
+  mcp-brave:
+    build:
+      context: .
+      target: dev
+    volumes:
+      - .:/app/src
+    environment:
+      MCP_BRAVE_RELOAD: "true"
+      MCP_BRAVE_ENVIRONMENT: "development"
+      MCP_BRAVE_LOG_LEVEL: "debug"
