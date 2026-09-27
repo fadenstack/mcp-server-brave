@@ -1,6 +1,6 @@
 """Logging configuration — loguru + OpenTelemetry trace enrichment.
 
-Mirrors the pattern used across all llm.port microservices.
+Mirrors the pattern used across all fadenstack microservices.
 """
 
 from __future__ import annotations

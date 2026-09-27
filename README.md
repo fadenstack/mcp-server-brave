@@ -1,7 +1,7 @@
 # MCP Server — Brave Search
 
 Standalone [Model Context Protocol](https://modelcontextprotocol.io/) server that
-exposes **Brave Search** as MCP tools for [LLM.port](https://github.com/llm-port).
+exposes **Brave Search** as MCP tools for [Fadenstack](https://github.com/fadenstack).
 
 ## Tools provided
 
@@ -40,9 +40,9 @@ mcp-brave docker-up --build
 docker compose up -d --build
 ```
 
-## Register with LLM.port
+## Register with Fadenstack
 
-In the LLM.port admin UI → **MCP Servers** → **Add Server**:
+In the Fadenstack admin UI → **MCP Servers** → **Add Server**:
 
 | Field       | Value                                     |
 | ----------- | ----------------------------------------- |

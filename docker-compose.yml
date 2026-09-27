@@ -2,7 +2,7 @@ x-app: &app
   build:
     context: .
     target: prod
-  image: llmport/mcp-brave:latest
+  image: faden/mcp-brave:latest
   container_name: mcp-brave
   restart: unless-stopped
   env_file: .env
