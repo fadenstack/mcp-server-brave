@@ -14,7 +14,8 @@ exposes **Brave Search** as MCP tools for [Fadenstack](https://github.com/fadens
 
 ```bash
 # Clone and install
-cd mcp_server_brave
+git clone https://github.com/fadenstack/mcp-server-brave.git
+cd mcp-server-brave
 uv sync
 
 # Configure
@@ -42,25 +43,26 @@ docker compose up -d --build
 
 ## Register with Fadenstack
 
-In the Fadenstack admin UI → **MCP Servers** → **Add Server**:
+The server speaks **Streamable HTTP**. In the Fadenstack console, open **Extensions → MCP Hub** and choose
+**Register Server**:
 
-| Field       | Value                                     |
-| ----------- | ----------------------------------------- |
-| Name        | Brave Search                              |
-| Transport   | SSE                                       |
-| URL         | `http://mcp-brave:8100/mcp`               |
-| Tool Prefix | `brave`                                   |
-| Headers     | `Authorization: Bearer <your-auth-token>` |
+| Field       | Value                                          |
+| ----------- | ---------------------------------------------- |
+| Name        | Brave Search                                   |
+| Transport   | Streamable HTTP                                |
+| URL         | `http://mcp-brave:8100/mcp`                    |
+| Tool Prefix | `brave`                                        |
+| Headers     | `Authorization: Bearer <MCP_BRAVE_AUTH_TOKEN>` |
 
-Or via API:
+Or through the API, as an administrator (a login token from `POST /api/auth/jwt/login`):
 
 ```bash
-curl -X POST http://localhost:8000/api/admin/mcp/servers \
-  -H "Authorization: Bearer <admin-jwt>" \
+curl -X POST https://<your-fadenstack-server>/api/admin/mcp/servers \
+  -H "Authorization: Bearer <admin-login-token>" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Brave Search",
-    "transport": "sse",
+    "transport": "streamable_http",
     "url": "http://mcp-brave:8100/mcp",
     "tool_prefix": "brave",
     "headers": {"Authorization": "Bearer <MCP_BRAVE_AUTH_TOKEN>"},
